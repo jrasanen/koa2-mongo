@@ -1,0 +1,80 @@
+html,
+body {
+  font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  height: 100%;
+  background: #fafafa;
+}
+
+h1 {
+  font-weight: 500;
+}
+
+.navbar {
+  margin-bottom: 10px;
+  border-radius: 0px;
+  background: rgba(255,255,255,0.97);
+  border-bottom: 1px solid #f1f1f1;
+  box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.05);
+}
+.navbar-brand {
+  float: none;
+}
+.navbar-nav .nav-item {
+  float: none;
+}
+.navbar-divider,
+.navbar-nav .nav-item+.nav-item,
+.navbar-nav .nav-link + .nav-link {
+  margin-left: 0;
+}
+
+@media (min-width: 34em) {
+  .navbar-brand {
+    float: left;
+  }
+  .navbar-nav .nav-item {
+    float: left;
+  }
+  .navbar-divider,
+  .navbar-nav .nav-item+.nav-item,
+  .navbar-nav .nav-link + .nav-link {
+    margin-left: 1rem;
+  }
+}
+
+input[type=text], textarea {
+  transition: all 0.30s ease-in-out;
+}
+
+.form-group input {
+  background: #fff;
+  border: 1px solid #bdd0e2;
+  font-weight: 300;
+}
+.form-group input:focus,
+.form-group input:hover {
+  background: #fff;
+  border: 1px solid #e0b9cc;
+}
+.btn-things {
+  background: #fff;
+  border: 1px solid #e0b9cc;
+}
+.btn-things:hover {
+  border: 1px solid #e0b9cc;
+}
+
+
+.sign-up--title {
+  margin-top: 4rem;
+}
+#sign-up {
+  margin-top: 2rem;
+}
+
+#login {
+  display: block;
+  padding-top: .425rem;
+  padding-bottom: .425rem;
+}
+
