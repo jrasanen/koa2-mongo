@@ -1,5 +1,6 @@
-import middleware from 'koa-router';
-
+import middleware from 'koa-router'
+import bcrypt from 'bcrypt'
+import User from '../models/user'
 const api = 'users'
 
 export default (app) => {
@@ -9,6 +10,13 @@ export default (app) => {
   router.get('/', async (ctx, next) => {
     await ctx.render('user/index.html')
   })
+
+  router.post('/', async (ctx, next) => {
+    let data = ctx.request.body
+    data.password = await bcrypt.hash(data.password, 11)
+    let user = await new User(data).save()
+    ctx.redirect('/')
+  });
 
   /*
   router.post('/', async (ctx, next) =>
