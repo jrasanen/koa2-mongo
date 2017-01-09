@@ -13,8 +13,18 @@ export default (app) => {
 
   router.post('/', async (ctx, next) => {
     let data = ctx.request.body
-    data.password = await bcrypt.hash(data.password, 11)
-    let user = await new User(data).save()
+
+    // @TODO: Silly way to ensure we don't hash and empty string.
+    try {
+      if (data.password.length < 7) {
+        throw new Error("Password too small")
+      }
+      data.password = await bcrypt.hash(data.password, 11)
+      let user = await new User(data).save()
+    }
+    catch (e) {
+      console.log(e)
+    }
     ctx.redirect('/')
   });
 

@@ -36,12 +36,11 @@
                       </a>
                   </li>
               </ul>
-              {% if loggedIn %}
+              {% if loggedIn === true %}
                 <span class="navbar-text">
-                  <a href="/logout/">Logout ({{ username }})</a>
+                  <a href="/logout/">Logout ({{ user.username }})</a>
                 </span>
               {% else %}
-
                 <form id="login" action="/sign-in" method="post" class="form-inline mt-2 mt-md-0">
                   <input type="text" name="username" placeholder="Username" class="form-control form-control-sm">
                   <input type="password" name="password" placeholder="Your password" class="form-control form-control-sm">

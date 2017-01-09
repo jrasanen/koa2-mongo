@@ -8,6 +8,7 @@ export default (app) => {
         ctx.redirect('/sign-in');
       } else {
         ctx.session.loggedIn = true
+        ctx.login(user)
         ctx.redirect('/');
       }
     })(ctx, next)
