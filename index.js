@@ -1,7 +1,7 @@
-// App.js
 import Koa from 'koa';
 import mongoose from 'mongoose';
-mongoose.Promise = require('bluebird');
+import bluebird from 'bluebird'
+mongoose.Promise = bluebird;
 
 // Middleware for routing.
 import middleware from 'koa-router';
@@ -12,15 +12,23 @@ import logger from 'koa-logger';
 // Middleware for accesing json from ctx.body.
 import parser from 'koa-bodyparser';
 
-import views from 'koa-views';
-
+// Middleware for serving static files
 import serve from 'koa-static-server';
 
+// Views
+import views from 'koa-views';
+
+// Convert koa 1 -> koa 2
 import convert from 'koa-convert';
 
+// Session support
 import session from 'koa-generic-session'
-
 import redisStore from 'koa-redis';
+
+import passport from 'koa-passport'
+
+// Load routes
+import routes from './routes';
 
 
 // Creates the application.
@@ -35,6 +43,7 @@ app.use(views(__dirname + '/views', {
   }
 }));
 
+// For sessions
 app.keys = ['kissa'];
 
 const connectDatabase = (uri) => {
@@ -49,14 +58,12 @@ const connectDatabase = (uri) => {
 }
 
 
-import routes from './routes';
-import passport from 'koa-passport'
 require('./auth')
 
 connectDatabase('localhost/things')
 
 app
-  .use(parser()) // Parses json body requests.
+  .use(parser())
   .use(session({
     store: redisStore()
   }))
@@ -64,6 +71,7 @@ app
   .use(passport.initialize())
   .use(passport.session())
   .use(async (ctx, next) => {
+    // Add global template variables.
     ctx.state.loggedIn = ctx.session.loggedIn
     ctx.state.username = ctx.session.username
     return await next()
@@ -72,13 +80,13 @@ app
   // A universal interceptor, that prints the ctx each time a request
   // is made on the server.
   .use(async function(ctx, next) {
-    //console.log(ctx);
+    console.log(ctx);
     return await next();
   })
 
+// Initialize routes
 routes(app)
 
-// Start the application.
 app.listen(5050, () => console.log('Listening on port 5050.'));
 
 export default app;
